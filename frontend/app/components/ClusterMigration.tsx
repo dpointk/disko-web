@@ -1,6 +1,8 @@
 "use client";
 import { useState } from 'react';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 interface ClusterMigrationFormProps {
   isOpen: boolean;
   onClose: () => void;
@@ -38,7 +40,7 @@ export function ClusterMigrationForm({ isOpen, onClose }: ClusterMigrationFormPr
     }).toString();
 
     try {
-        const response = await fetch(`http://localhost:5000/api/clustermigration?${query}`, {
+        const response = await fetch(`${apiUrl}/api/clustermigration?${query}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

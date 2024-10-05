@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 interface ClusterSelectorProps {
     onClusterChange: (cluster: string) => void;
 }
@@ -18,7 +20,7 @@ const ClusterSelector: React.FC<ClusterSelectorProps> = ({ onClusterChange }) =>
             try {
                 setLoading(true);
                 setError(null);
-                const response = await axios.get('http://localhost:5000/api/clusters');
+                const response = await axios.get(`${apiUrl}/api/clusters`);
                 setClusters(response.data);
             } catch (err) {
                 setError('Failed to load clusters');
@@ -41,7 +43,7 @@ const ClusterSelector: React.FC<ClusterSelectorProps> = ({ onClusterChange }) =>
         }
         
         try {
-            await axios.post('http://localhost:5000/api/selected-cluster', { cluster: selectedCluster });
+            await axios.post(`${apiUrl}/api/selected-cluster`, { cluster: selectedCluster });
             onClusterChange(selectedCluster);
             
             // Dispatch custom event with the selected cluster

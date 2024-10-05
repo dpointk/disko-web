@@ -3,6 +3,8 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 interface Statistic {
     registry: string;
     amount: number;
@@ -20,7 +22,7 @@ export function Stat() {
         try {
             setLoading(true);
             setError(null);
-            const response = await axios.get(`http://localhost:5000/api/statistics?cluster=${cluster}`);
+            const response = await axios.get(`${apiUrl}/api/statistics?cluster=${cluster}`);
             setStatistics(response.data.results);
         } catch (err) {
             setError('Failed to load statistics');
