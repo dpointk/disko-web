@@ -3,6 +3,8 @@
 import React, { useState, useEffect, CSSProperties } from 'react';
 import axios from 'axios';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 interface AllProps {
     cluster: string;
     onImagesFetched: (images: string[]) => void; 
@@ -24,7 +26,7 @@ const All: React.FC<AllProps> = ({ cluster, onImagesFetched }) => {
         try {
             setLoading(true);
             setError(null);
-            const response = await axios.get(`http://localhost:5000/api/images/${cluster}`);
+            const response = await axios.get(`${apiUrl}/api/images/${cluster}`);
             const fetchedImages = response.data;
             setImages(fetchedImages);
             onImagesFetched(fetchedImages.map((image: any) => image[0])); 

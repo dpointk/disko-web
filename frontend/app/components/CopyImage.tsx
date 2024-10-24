@@ -1,5 +1,7 @@
 import React, { useState, CSSProperties } from 'react';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 interface CopyImageFormProps {
     cluster: string; 
     availableImages: string[]; 
@@ -54,10 +56,10 @@ export function CopyImageForm({ cluster, availableImages }: CopyImageFormProps) 
 
         const query = params.toString();
 
-        console.log(`Request URL: http://localhost:5000/api/copyimage?${query}`);
+        console.log(`Request URL: ${apiUrl}/api/copyimage?${query}`);
 
         try {
-            const response = await fetch(`http://localhost:5000/api/copyimage?${query}`, {
+            const response = await fetch(`${apiUrl}/api/copyimage?${query}`, {
                 method: 'GET',
             });
 
